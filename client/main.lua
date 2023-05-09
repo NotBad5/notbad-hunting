@@ -201,7 +201,7 @@ Citizen.CreateThread(function()
 					for k, v in pairs(Config.AnimalModelsToProcess) do
 						if GetEntityModel(animal) == GetHashKey(v)  then
 							if distance <= 1.5 and animal ~= playerPed then
-								DrawText3Ds(animalPos.x, animalPos.y, animalPos.z, 'Stiskni ~g~[E]~w~ pro vykuchaní zvírete', 6)
+								DrawText3Ds(animalPos.x, animalPos.y, animalPos.z, _U('pressE'), 6)
 								if IsControlJustPressed(1, 86) then
 									LoadAnimDict('amb@medic@standing@kneel@base')
 									LoadAnimDict('anim@gangops@facility@servers@bodysearch@')
