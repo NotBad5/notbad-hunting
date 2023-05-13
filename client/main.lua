@@ -58,7 +58,9 @@ Citizen.CreateThread(function()
 		if #spawnedAnimals < LimitOfSpawnedAnimals and currentZone ~= nil then
 			sleep = 0
 
-			local modelHash = GetHashKey(Config.HuntZones[currentZone].animalsToSpawn[math.random(#Config.HuntZones[currentZone].animalsToSpawn)])
+			local animalSpawnName = Config.HuntZones[currentZone].animalsToSpawn[math.random(#Config.HuntZones[currentZone].animalsToSpawn)]
+
+			local modelHash = GetHashKey(animalSpawnName)
 			RequestModel(modelHash)
 			while not HasModelLoaded(modelHash) do
 				Wait(0)
@@ -86,13 +88,17 @@ Citizen.CreateThread(function()
 			if raycast then
 				local entity = CreatePed(4, modelHash, spawnPos.x, spawnPos.y, posZ, 0.0, true, true)
 
-				local randomNumber = math.random(1, 3)
+				local randomNumber = math.random(1, 10)
 				
-				if randomNumber == 1 then
-					TaskCombatPed(entity, GetPlayerPed(-1), 0, 16)
-				else
-					TaskWanderStandard(entity, true, true)
-					TaskStartScenarioInPlace(entity, "WORLD_DEER_GRAZING", 0, false)
+				for k,v in pairs(Config.AnimalAttackChance) do
+					if k == animalSpawnName then
+						if (v.chance / 10) >= randomNumber then
+							TaskCombatPed(entity, GetPlayerPed(-1), 0, 16)
+						else
+							TaskWanderStandard(entity, true, true)
+							TaskStartScenarioInPlace(entity, "WORLD_DEER_GRAZING", 0, false)
+						end
+					end
 				end
 
 				table.insert(spawnedAnimals, entity)
