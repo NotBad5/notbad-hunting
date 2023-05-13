@@ -36,4 +36,16 @@ Config.AnimalsReward = {
 	},
 }
 
+Config.AnimalAttackChance = {
+	a_c_deer = {
+		chance = 50, -- 50% chance that this animal will attack you
+	},
+	a_c_boar = {
+		chance = 50, -- 50% chance that this animal will attack you
+	},
+	a_c_mtlion = {
+		chance = 80, -- 80% chance that this animal will attack you
+	},
+}
+
 Config.AnimalModelsToProcess = {'a_c_deer', 'a_c_boar', 'a_c_mtlion'}
