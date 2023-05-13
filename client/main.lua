@@ -86,12 +86,13 @@ Citizen.CreateThread(function()
 			if raycast then
 				local entity = CreatePed(4, modelHash, spawnPos.x, spawnPos.y, posZ, 0.0, true, true)
 
-				local randomNumber = math.random(1, 2)
+				local randomNumber = math.random(1, 3)
 				
 				if randomNumber == 1 then
-					TaskStartScenarioInPlace(entity, "WORLD_DEER_GRAZING", 0, false)
+					TaskCombatPed(entity, GetPlayerPed(-1), 0, 16)
 				else
 					TaskWanderStandard(entity, true, true)
+					TaskStartScenarioInPlace(entity, "WORLD_DEER_GRAZING", 0, false)
 				end
 
 				table.insert(spawnedAnimals, entity)
