@@ -1,5 +1,14 @@
-ESX = nil
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+export, ESX = pcall(function()
+	return exports.es_extended:getSharedObject()
+end)
+if not export then
+	while not ESX do
+		TriggerEvent("esx:getSharedObject", function(obj)
+			ESX = obj
+		end)
+		Wait(800)
+	end
+end
 
 local Zones = {}
 
