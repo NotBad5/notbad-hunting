@@ -3,12 +3,17 @@ ESX = nil
 local currentZone = nil
 local LimitOfSpawnedAnimals = 0
 
-Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
-	end
+local export, ESX = pcall(function()
+	return exports.es_extended:getSharedObject()
 end)
+if not export then
+	while not ESX do
+		TriggerEvent("esx:getSharedObject", function(obj)
+			ESX = obj
+		end)
+		Wait(800)
+	end
+end
 
 Citizen.CreateThread(function()			 
 	while true do
