@@ -21,7 +21,7 @@ Citizen.CreateThread(function()
 		if Config.DevMode then
 			sleep = 0
 		end
-		local playerPed = GetPlayerPed(-1)
+		local playerPed = PlayerPedId()
 		local playerCoords = GetEntityCoords(playerPed)
 
 		for k,v in pairs(Config.HuntZones) do
@@ -56,7 +56,7 @@ local spawnedAnimals = {}
 Citizen.CreateThread(function()
 	while true do
 		local sleep = 1000
-		local playerPed = GetPlayerPed(-1)
+		local playerPed = PlayerPedId()
 		local playerCoords = GetEntityCoords(playerPed)
 		local spawnPos
 
@@ -98,7 +98,7 @@ Citizen.CreateThread(function()
 				for k,v in pairs(Config.AnimalAttackChance) do
 					if k == animalSpawnName then
 						if (v.chance / 10) >= randomNumber then
-							TaskCombatPed(entity, GetPlayerPed(-1), 0, 16)
+							TaskCombatPed(entity, PlayerPedId(), 0, 16)
 						else
 							TaskWanderStandard(entity, true, true)
 							TaskStartScenarioInPlace(entity, "WORLD_DEER_GRAZING", 0, false)
@@ -172,13 +172,13 @@ function GetClosestPedNotBad()
     local closestPed = 0
 
 	local pedsPool = GetGamePool("CPed")
-	local playerCoords = GetEntityCoords(GetPlayerPed(-1))
+	local playerCoords = GetEntityCoords(PlayerPedId())
 
 	for i = 1, #pedsPool do
 		local targetCoords = GetEntityCoords(pedsPool[i])
         local distanceCheck = #(playerCoords - targetCoords)
 
-        if distanceCheck <= 1.5 and pedsPool[i] ~= GetPlayerPed(-1) then
+        if distanceCheck <= 1.5 and pedsPool[i] ~= PlayerPedId() then
             closestPed = pedsPool[i]
             break
         end
@@ -190,7 +190,7 @@ end
 Citizen.CreateThread(function()
 	while true do
 		local sleep = 1000
-		local playerPed = GetPlayerPed(-1)
+		local playerPed = PlayerPedId()
 		local playerCoords = GetEntityCoords(playerPed)
 		
 		if GetSelectedPedWeapon(playerPed) == GetHashKey(Config.ToolToProcessAnimals) and not IsPedInAnyVehicle(playerPed) then
